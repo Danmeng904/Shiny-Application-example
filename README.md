@@ -5,9 +5,9 @@ The data used in this Shiny app is from [Kaggle](https://www.kaggle.com/).
 #### Data Description
 - age: age of primary beneficiary
 - sex: insurance contractor gender, female, male
-- bmi: Body mass index, providing an understanding of body, weights that are relatively high or low relative to height,objective index of body weight (kg / m ^ 2) using the ratio of height to weight, ideally 18.5 to 24.9
-- children: Number of children covered by health insurance / Number of dependents
-- smoker: Smoking
+- bmi: body mass index, providing an understanding of body, weights that are relatively high or low relative to height,objective index of body weight (kg / m ^ 2) using the ratio of height to weight, ideally 18.5 to 24.9
+- children: number of children covered by health insurance / number of dependents
+- smoker: smoke or not
 - region: the beneficiary's residential area in the US, northeast, southeast, southwest, northwest.
 - charges: Individual medical costs billed by health insurance
 See this [page](https://www.kaggle.com/mirichoi0218/insurance) for the information of this dataset.

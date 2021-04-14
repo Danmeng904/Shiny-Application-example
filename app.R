@@ -44,8 +44,8 @@ server <- function(input, output) {
   })
   
   output$scatterplot <- renderPlot({
-    ggplot(data = costData,aes(input$var1,charges,color = sex))+
-      geom_point() +
+    ggplot(costData,aes_(as.name(input$var1),quote(charges),color = quote(sex)))+
+      geom_point()+
       geom_smooth(method = 'lm')
   })
   

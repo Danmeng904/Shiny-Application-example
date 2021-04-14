@@ -6,49 +6,68 @@ costData <- read.csv("insurance.csv")
 
 # Define UI for app ----
 ui <- fluidPage(
+  
   # App title ----
   titlePanel("InsuranceCost"),
   
-  # Sidebar layout with input and output definitions ----
   sidebarLayout(
     
-    # Sidebar panel for inputs ----
     sidebarPanel(
+      tabsetPanel(id = "tabset",
+                  tabPanel("Numerical",
+                           selectInput("var1", h5("Choose a numerical variable"), 
+                                       choices = c("Age" = 'age', 
+                                                   "BMI" = 'bmi'),selected = "age"),
+                  ),
+                  tabPanel("Categorical",
+                           selectInput("var2", h5("Choose a categorical variable"), 
+                                       choices = c("Number of children" = 'children', 
+                                                   "Smoke or not" = 'smoker',
+                                                   "Region" = 'region'),selected = "children"),
+                  )
+                  
+      ),
       
-      helpText("Please select the variable to see the visualization 
-               between it and the cost:"),
-      
-      
-      selectInput("var1", h4("Choose a variable"), 
-                  choices = c("Age" = 'age', 
-                              "BMI" = 'bmi'),selected = "age"),
+      actionButton("go", "Plot")
     ),
     
-    # Main panel for displaying outputs ----
     mainPanel(
-      h3(textOutput("caption")),
-      plotOutput("scatterplot")
+      plotOutput("plot")
     )
+    
   )
 )
+
+
 
 # Define server ----
 server <- function(input, output) {
   
-  formulaText <- reactive({
-    paste(input$var1, "and cost")
+  v <- reactiveValues(doPlot = FALSE)
+  
+  observeEvent(input$go, {
+    v$doPlot <- input$go
   })
   
-  output$caption <- renderText({
-    formulaText()
+  observeEvent(input$tabset, {
+    v$doPlot <- FALSE
   })
   
-  output$scatterplot <- renderPlot({
-    ggplot(costData,aes_(as.name(input$var1),quote(charges),color = quote(sex)))+
-      geom_point()+
-      geom_smooth(method = 'lm')
+  output$plot <- renderPlot({
+    if (v$doPlot == FALSE) return()
+    
+    isolate({
+      data <- if (input$tabset == "Numerical"){
+        ggplot(costData,aes_(as.name(input$var1),quote(charges),color = quote(sex)))+
+          geom_point()+
+          geom_smooth(method = 'lm')
+      } else {ggplot(costData,aes_(as.name(input$var2),quote(charges))) +
+          geom_boxplot()+facet_wrap(~sex)}
+      
+      plot(data)
+    })
   })
-  
+
 }
 
 # Create Shiny app ----

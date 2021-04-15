@@ -8,6 +8,7 @@ costData <- read.csv("https://raw.githubusercontent.com/Danmeng904/Shiny-Applica
                      header = TRUE)
 source_url("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/LRsummaryFunction.R")
 
+
 # Define UI for app ----
 ui <- fluidPage(
   
@@ -34,8 +35,6 @@ ui <- fluidPage(
       
       actionButton("go", "Plot"),
       
-      actionButton("reset", "Clear"),
-      
       actionButton("lr","Linear Regression Summary")
       
     ),
@@ -54,6 +53,8 @@ ui <- fluidPage(
 # Define server ----
 server <- function(input, output,session) {
   
+  global <- reactiveValues(refresh = FALSE)
+  
   # the plot shown when choosing certain variable
   v <- reactiveValues(doPlot = FALSE)
   
@@ -64,12 +65,6 @@ server <- function(input, output,session) {
   observeEvent(input$tabset, {
     v$doPlot <- FALSE
   })
-  
-  # 'Clear' button: to switch between EDA plots and linear regression
-  observeEvent(input$reset, {
-    v$doPlot <- FALSE
-  }) 
-  
   
   # show linear regression summary
   lmreaction <- eventReactive(input$lr,{

@@ -6,7 +6,7 @@ library(devtools)
 #import and define the data we use
 costData <- read.csv("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/data/insurance.csv",
                      header = TRUE)
-source_url("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/LRsummary%20function.R")
+source_url("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/LRsummaryFunction.R")
 
 # Define UI for app ----
 ui <- fluidPage(

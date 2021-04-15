@@ -13,7 +13,7 @@ The data used in this Shiny app is from [Kaggle](https://www.kaggle.com/).
 See this [page](https://www.kaggle.com/mirichoi0218/insurance) for the information of this dataset.
 ## How to Run the app
 1. You may download the app with the dataset locally and simply open the app.R file in RStudio and click the Run App button.
-2. The app can also be run with the following command:
+2. The app can also be run with the following command after loading 'shiny' library in RStudio:
 `runGitHub("Shiny-Application-example", "Danmeng904", ref = "main" )`
 
 Any correction and suggestion are welcomed.

@@ -21,21 +21,6 @@ The data used in this Shiny app is from [Kaggle](https://www.kaggle.com/). See [
 
 ## How to use this app
 #### EDA
-```{r user interface}
-![User Interface](https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/images/ui.jpg)
-```
 In EDA, users may choose to see the visualization of either numerical or categorical independent variables by clicking on the tags, and then please select one variable using the select box. When variable is chosen, please click on `Plot` button to see the plots. Numerical variables are shown by scatterplots while categorical by boxplots.
-```{r sider}
-![siderPanel](https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/images/siderpanel.jpg)
-```
-```{r select variable}
-![Select a variable](https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/images/select%20a%20variable.jpg)
-```
-```{r Example of plot}
-![Example of plot](https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/images/scatterAge.jpg)
-```
-
+#### Linear Regression
 By clicking on `Linear Regression Summary` button, users would see the summary of the linear regression result.
-```{r linear regression}
-![Summary of linear regression](https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/images/lrsummary.jpg)
-```

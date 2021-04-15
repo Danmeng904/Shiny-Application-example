@@ -1,8 +1,12 @@
 library(shiny)
 library(ggplot2)
+library(tidyverse)
+library(devtools)
 
 #import and define the data we use
-costData <- read.csv("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/data/insurance.csv",header = TRUE)
+costData <- read.csv("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/data/insurance.csv",
+                     header = TRUE)
+source_url("https://raw.githubusercontent.com/Danmeng904/Shiny-Application-example/main/LRsummary%20function.R")
 
 # Define UI for app ----
 ui <- fluidPage(
@@ -28,11 +32,18 @@ ui <- fluidPage(
                   
       ),
       
-      actionButton("go", "Plot")
+      actionButton("go", "Plot"),
+      
+      actionButton("reset", "Clear"),
+      
+      actionButton("lr","Linear Regression Summary")
+      
     ),
     
     mainPanel(
-      plotOutput("plot")
+      plotOutput("plot"),
+      
+      verbatimTextOutput("lrsummary")
     )
     
   )
@@ -41,8 +52,9 @@ ui <- fluidPage(
 
 
 # Define server ----
-server <- function(input, output) {
+server <- function(input, output,session) {
   
+  # the plot shown when choosing certain variable
   v <- reactiveValues(doPlot = FALSE)
   
   observeEvent(input$go, {
@@ -51,6 +63,21 @@ server <- function(input, output) {
   
   observeEvent(input$tabset, {
     v$doPlot <- FALSE
+  })
+  
+  # 'Clear' button: to switch between EDA plots and linear regression
+  observeEvent(input$reset, {
+    v$doPlot <- FALSE
+  }) 
+  
+  
+  # show linear regression summary
+  lmreaction <- eventReactive(input$lr,{
+    lroutput(costData)
+  })
+  
+  output$lrsummary <- renderPrint({
+    lmreaction()
   })
   
   output$plot <- renderPlot({
@@ -67,7 +94,7 @@ server <- function(input, output) {
       plot(data)
     })
   })
-
+  
 }
 
 # Create Shiny app ----
